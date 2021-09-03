@@ -1,0 +1,58 @@
+version: '3.8'
+
+services:
+  api:
+    container_name: api
+    build: "."
+    working_dir: /home/node
+    env_file:
+      - _docker/development/common.env
+      - _docker/development/api.env
+    volumes:
+      - .:/home/node:delegated
+      - ./var/log:/var/log:delegated
+    ports:
+      - 3000:3000
+    entrypoint: "api-entrypoint.sh"
+    command: ["npm", "run", "dev"]
+    networks:
+      family_backer:
+    depends_on:
+      - db
+  cron:
+    container_name: cron
+    build: "."
+    working_dir: /home/node
+    env_file:
+      - _docker/development/common.env
+      - _docker/development/cron.env
+    volumes:
+      - .:/home/node:delegated
+      - ./var/log:/var/log:delegated
+    entrypoint: "cron-entrypoint.sh"
+    command: ["cron", "-f"]
+    networks:
+      family_backer:
+    depends_on:
+      - api
+  db:
+    container_name: db
+    restart: always
+    image: mysql/mysql-server:8.0
+    env_file:
+      - _docker/development/db.env
+    ports:
+      - 3306:3306
+    networks:
+      family_backer:
+        aliases: ["mysql.docker.internal"]
+    volumes:
+      - db:/var/lib/mysql
+      - ./_docker/development/db/mounts/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d:ro
+
+networks:
+  family_backer:
+    driver: bridge
+
+volumes:
+  db:

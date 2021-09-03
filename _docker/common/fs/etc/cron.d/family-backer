@@ -1,0 +1,4 @@
+SHELL=/bin/bash
+BASH_ENV=/usr/local/bin/cron-env.sh
+0 0 * * 2,4 node /home/node/dist/application/scripts/task-creation/schedules/tuesday-and-thursday.js >> /var/log/family-backercron-std.log 2>&1
+0 0 * * 6 node /home/node/dist/application/scripts/task-creation/schedules/saturday.js >> /var/log/family-backercron-std.log 2>&1

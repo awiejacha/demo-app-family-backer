@@ -1,0 +1,59 @@
+{
+  "name": "demo-app-family-backer",
+  "version": "0.2.0",
+  "description": "Taskify with double 'i'",
+  "main": "dist/application/app.js",
+  "exports": {
+    "./log-transports/console": "./src/application/log-transports/console.mjs"
+  },
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "tsc -p test/tsconfig.test.json && cross-env TS_NODE_FILES=true tap --ts test/**/*.test.ts",
+    "start": "fastify start -a 0.0.0.0 -l info dist/application/app.js",
+    "start:dev": "fastify start -a 0.0.0.0 -l debug --ignore-watch=.ts$ -w -P dist/application/app.js",
+    "build:ts": "tsc",
+    "watch:ts": "tsc -w",
+    "build:mjs": "copy-and-watch src/**/*.mjs dist",
+    "watch:mjs": "copy-and-watch --watch src/**/*.mjs dist",
+    "dev": "concurrently -k -p \"[{name}]\" -n \"ts,mjs,app\" -c \"yellow.bold,yellow.bold,cyan.bold\" \"npm run watch:ts\" \"npm run watch:mjs\" \"npm run start:dev\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/awiejacha/demo-app-family-backer.git"
+  },
+  "keywords": [],
+  "author": "Adrian Wiejacha <adrian.wiejacha@gmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/awiejacha/demo-app-family-backer/issues"
+  },
+  "homepage": "https://github.com/awiejacha/demo-app-family-backer#readme",
+  "dependencies": {
+    "fastify": "^3.18.1",
+    "fastify-autoload": "^3.8.0",
+    "fastify-cli": "^2.13.0",
+    "fastify-cors": "^6.0.1",
+    "fastify-helmet": "^5.3.1",
+    "fastify-plugin": "^3.0.0",
+    "knex": "^0.95.6",
+    "mysql2": "^2.2.5",
+    "nanoid": "^3.1.23",
+    "pino": "^7.0.0-rc.2",
+    "rotating-file-stream": "^2.1.5"
+  },
+  "devDependencies": {
+    "@types/node": "^15.12.5",
+    "@types/tap": "^15.0.4",
+    "concurrently": "^6.2.0",
+    "copy-and-watch": "^0.1.5",
+    "cross-env": "^7.0.3",
+    "fastify-tsconfig": "^1.0.1",
+    "tap": "^15.0.9",
+    "ts-node": "^10.0.0",
+    "tslint": "^5.11.0",
+    "tslint-config-airbnb": "^5.11.2",
+    "typescript": "^4.2.4"
+  }
+}
