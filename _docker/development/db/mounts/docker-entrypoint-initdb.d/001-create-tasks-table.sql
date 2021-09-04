@@ -6,6 +6,7 @@ create table if not exists family_backer.tasks
     id_state       int      default 1                   not null,
     id_assignee    int                                  null,
     id_responsible int                                  null,
+    is_stale       boolean  default 0                   not null,
     created_at     datetime default (now())             not null,
     modified_at    datetime default (CURRENT_TIMESTAMP) null on update CURRENT_TIMESTAMP,
     constraint tasks_id_uindex

@@ -23,6 +23,9 @@ export default (fastify: FastifyInstance) => {
       responsible: {
         type: 'string',
       },
+      isStale: {
+        type: 'boolean',
+      },
     },
   });
 };

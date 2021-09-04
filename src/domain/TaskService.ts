@@ -1,4 +1,4 @@
-import SuchTaskAlreadyExistsError from './Errors/SuchTaskAlreadyExistsError';
+import TaskAlreadyExistsError from './Errors/TaskAlreadyExistsError';
 import TaskNotFoundError from './Errors/TaskNotFoundError';
 import IdGenerator from './IdGenerator';
 import TaskRepository from './TaskRepository';
@@ -37,7 +37,9 @@ export default class TaskService {
     const existingTask = await this.repository.findByLocationAndDefinition(location, definition);
 
     if (existingTask) {
-      throw new SuchTaskAlreadyExistsError(`A task '${definition.name}' in '${location.name}' exists with id '${existingTask.id}'`);
+      existingTask.makeStale();
+      await this.repository.add(existingTask);
+      throw new TaskAlreadyExistsError(`A task '${definition.name}' in '${location.name}' exists with id '${existingTask.id}'`);
     }
 
     return this.create(locationName, definitionName);

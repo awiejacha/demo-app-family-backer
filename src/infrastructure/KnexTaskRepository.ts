@@ -13,6 +13,7 @@ type Row = {
   id_state: number;
   id_assignee: number|null;
   id_responsible: number|null;
+  is_stale: boolean;
 };
 
 const getIdLocation = (location: string): number =>
@@ -50,6 +51,7 @@ const rowToTask = (row: Row): Task => {
     getState(row.id_state),
     assignee,
     responsible,
+    row.is_stale,
   );
 };
 
@@ -61,6 +63,7 @@ const taskToRow = (task: Task): Row => {
     id_state: getIdState(task.state.name),
     id_assignee: task.assignee ? getIdPerson(task.assignee.name) : null,
     id_responsible: task.responsible ? getIdPerson(task.responsible.name) : null,
+    is_stale: task.isStale,
   };
 };
 

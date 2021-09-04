@@ -14,12 +14,14 @@ export type TaskPresentation = {
   state: string;
   assignee?: string;
   responsible?: string;
+  isStale: boolean;
 };
 
 export default class Task {
   private taskState: TaskState;
   private taskAssignee?: Person;
   private taskResponsible?: Person;
+  private isTaskStale?: boolean;
 
   constructor(
     public readonly id: string,
@@ -28,10 +30,12 @@ export default class Task {
     state: TaskState,
     assignee?: Person,
     responsible?: Person,
+    isStale?: boolean,
   ) {
     this.taskState = state;
     this.taskAssignee = assignee;
     this.taskResponsible = responsible;
+    this.isTaskStale = isStale;
 
     if (location.isSpecified() && !definition.isLocationSpecific()) {
       throw new LocationNotApplicableError(
@@ -46,6 +50,10 @@ export default class Task {
 
   get state(): TaskState {
     return this.taskState;
+  }
+
+  get isStale(): boolean {
+    return this.isTaskStale === true;
   }
 
   public progress(): void {
@@ -98,12 +106,17 @@ export default class Task {
     return this.taskResponsible;
   }
 
+  public makeStale(): void {
+    this.isTaskStale = true;
+  }
+
   public toPresentation(): TaskPresentation {
     const presentation: TaskPresentation = {
       id: this.id,
       location: this.location.name,
       definition: this.definition.name,
       state: this.taskState.name,
+      isStale: this.isStale,
     };
 
     if (this.taskAssignee) {
