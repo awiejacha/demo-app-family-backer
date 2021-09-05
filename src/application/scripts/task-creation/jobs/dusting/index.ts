@@ -5,7 +5,7 @@ import {
   createKrystianBedroomDusting,
   createKarolBedroomDusting,
   createBathroomDusting,
-} from '../../modules/dusting';
+} from '../../actions';
 
 export async function allHouse() {
   return Promise.all([

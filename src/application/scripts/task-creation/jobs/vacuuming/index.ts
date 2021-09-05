@@ -5,7 +5,7 @@ import {
   createKrystianBedroomVacuuming,
   createKarolBedroomVacuuming,
   createBathroomVacuuming,
-} from '../../modules/vacuuming';
+} from '../../actions';
 
 export async function allHouse() {
   return Promise.all([

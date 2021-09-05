@@ -5,7 +5,7 @@ import {
   createKrystianBedroomFloorCleaning,
   createKarolBedroomFloorCleaning,
   createBathroomFloorCleaning,
-} from '../../modules/floor-cleaning';
+} from '../../actions';
 
 export async function allHouse() {
   return Promise.all([

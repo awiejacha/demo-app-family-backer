@@ -5,7 +5,7 @@ import {
   createKrystianBedroomTidyingUp,
   createKarolBedroomTidyingUp,
   createBathroomTidyingUp,
-} from '../../modules/tidying-up';
+} from '../../actions';
 
 export async function allHouse() {
   return Promise.all([
