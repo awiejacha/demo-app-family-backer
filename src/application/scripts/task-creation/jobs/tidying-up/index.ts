@@ -7,8 +7,8 @@ import {
   createBathroomTidyingUp,
 } from '../../modules/tidying-up';
 
-(async () => {
-  await Promise.all([
+export async function allHouse() {
+  return Promise.all([
     createLivingRoomTidyingUp(),
     createKitchenTidyingUp(),
     createMasterBedroomTidyingUp(),
@@ -16,4 +16,4 @@ import {
     createKarolBedroomTidyingUp(),
     createBathroomTidyingUp(),
   ]);
-})();
+}

@@ -7,8 +7,8 @@ import {
   createBathroomVacuuming,
 } from '../../modules/vacuuming';
 
-(async () => {
-  await Promise.all([
+export async function allHouse() {
+  return Promise.all([
     createLivingRoomVacuuming(),
     createKitchenVacuuming(),
     createMasterBedroomVacuuming(),
@@ -16,4 +16,4 @@ import {
     createKarolBedroomVacuuming(),
     createBathroomVacuuming(),
   ]);
-})();
+}
