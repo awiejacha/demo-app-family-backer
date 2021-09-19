@@ -20,8 +20,7 @@ const app: FastifyPluginAsync<AppOptions> = async (
   void responseError(fastify);
   void responseTask(fastify);
   void fastify.register(fastifyCors, {
-    // TODO: Parametrise
-    origin: 'http://localhost:8080',
+    origin: true,
   });
   void fastify.register(fastifyHelmet);
   void fastify.register(logger);

@@ -1,7 +1,7 @@
 {
   "name": "demo-app-family-backer",
   "version": "0.2.0",
-  "description": "Taskify with double 'i'",
+  "description": "Typescript backend demo application",
   "main": "dist/application/app.js",
   "exports": {
     "./log-transports/console": "./src/application/log-transports/console.mjs"
@@ -12,7 +12,7 @@
   "scripts": {
     "test": "tsc -p test/tsconfig.test.json && cross-env TS_NODE_FILES=true tap --ts test/**/*.test.ts",
     "start": "fastify start -a 0.0.0.0 -l info dist/application/app.js",
-    "start:dev": "fastify start -a 0.0.0.0 -l debug --ignore-watch=.ts$ -w -P dist/application/app.js",
+    "start:dev": "fastify start -a 0.0.0.0 -l debug --ignore-watch='var .ts$ .mjs$' -w -P dist/application/app.js",
     "build:ts": "tsc",
     "watch:ts": "tsc -w",
     "build:mjs": "copy-and-watch src/**/*.mjs dist",
